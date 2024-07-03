@@ -12,11 +12,10 @@ const port = 1999
 app.use(express.json());
 app.use(cors());
 app.use("/Api/food", foodRouter);
-app.use("Api/user", userRouter)
 app.use("/images", express.static("upload"));
 app.use("/foods", foodRouter);
 app.use("/remove", foodRouter);
-app.use("/newuser", userRouter);
+app.use("/Api/user", userRouter);
 
 
 //DB Connection
