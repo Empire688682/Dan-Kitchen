@@ -1,0 +1,41 @@
+.shop-item{
+    max-width: 280px;
+    position: relative;
+}
+.shop-item .shop-item-img{
+    width: 100%;
+}
+.name-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.shop-item .price{
+    margin: 10px 0;
+    font-weight: 800;
+}
+.count-section{
+    position: absolute;
+    left: 0;
+    top: 40%;
+    margin-left: 30px;
+}
+.count-section img{
+    cursor: pointer;
+}
+.count-control-con{
+    background-color: aliceblue;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 50px;
+}
+.count-control-con img{
+    width: 30px;
+}
+.count-control-con p{
+    font-weight: bold;
+}

@@ -1,0 +1,47 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    margin: 30px auto;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.navbar .logo{
+    font-size: 25px;
+    color: red;
+}
+.navbar .menu ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.navbar .menu ul li{
+    list-style: none;
+    font-weight: 550;
+    color: rgb(73, 70, 70);
+    cursor: pointer;
+}
+.menu ul li hr{
+    margin-bottom: 20px;
+    border: 2px solid red;
+    margin-top: 5px;
+    transition: .5s;
+}
+.navbar .login-section{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.login-section img{
+    cursor: pointer;
+}
+.login-section button{
+    background-color: transparent;padding: 10px 25px;
+    font-size: 20px;
+    border-radius: 50px;
+    border: 1px solid;
+    cursor: pointer;
+}

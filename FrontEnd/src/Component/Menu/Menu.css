@@ -1,0 +1,23 @@
+.cart-menu{
+    width: 90%;
+    margin: 30px auto;
+}
+.cart-menu .menu-con{
+    display: flex;
+    overflow: scroll;
+    align-items: center;
+    justify-content: start;
+    gap: 15px;
+}
+.menu-con .menu-cart{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+}
+ .menu-cart .active {
+    border: 5px solid red;
+    border-radius: 50%;
+}
