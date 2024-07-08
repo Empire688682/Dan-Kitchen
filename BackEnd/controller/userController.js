@@ -1,58 +1,67 @@
-import { UserModel } from "../models/userModel.js";
-import jwt from 'jsonwebtoken';
+import { userModel } from "../models/userModel.js";
 import validator from "validator";
+import bcrypt from 'bcryptjs';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
-//login user
-const registerUser = async (req, res) =>{
+dotenv.config()
+
+const registerUser = async (req,res) =>{
     const {name, password, email} = req.body;
     try {
-        // checking isUser exist
-        const userExist = await UserModel.findOne({email});
+
+        //checking isUser exist
+        const userExist = await userModel.findOne({email});
         if(userExist){
-            return res.json({success:false, message:"user already exist"})
+          return res.json({success:false, message:'User already exist'});
         }
-        // checking isEmail valid
-        const isEmailValid = (!validator.isEmail(email));
-        if(isEmailValid){
-            return res.json({success:false, message:"please enter valid email"})
+        //checking isEmail valid
+        const isEmailValid = validator.isEmail(email);
+        if(!isEmailValid){
+            return res.json({success:false, message:'Please enter a valid email'});
         }
-        // checking password strenght
-        const isPasswordStrong = password.length >= 8;
-        if(!isPasswordStrong){
-            return res.json({success:false, message:"password must be graeter than 8"})
-        }
+         //checking isPassword strong
+         const isPasswordStrong = password.length >= 8;
+         if(!isPasswordStrong){
+            return res.json({success:false, message:'Please enter a Strong password'});
+         }
 
-        const newUser = new UserModel({
+         const hashedPassword = await bcrypt.hash(password, 14)
+
+          // Creating and saving the new user
+         const user = await new userModel({
             name:name,
-            email:email,
-            password:password
-        });
-       
-        const user = await newUser.save();
-        return res.json({ success: true, message: "User registered successfully", user });
+            password:hashedPassword,
+            email:email
+        })
 
+        await user.save();
+         return res.json({success:true, message:'User registered'});
     } catch (error) {
-        console.log("CreatingUser:", error);
-        res.json({success:false, message:"Error"})
+        return res.json({success:false, message:error.message});
     }
-};
+}
 
-//register user
-const loginUser = async (req, res) =>{
-    const {email, password} = req.body
-
+const logInUser = async (req,res) =>{
+    const {password, email} = req.body;
     try {
-        const user = await UserModel.findOne({email});
+         //checking isUser exist
+        const user = await userModel.findOne({email});
         if(!user){
-            return res.json({success:false, message:"User not exist"})
-        };
+            return res.json({success:false, message:'Invalid email or user'});
+          }
+          //checking isPassword s
+        const isPasswordMatch = await bcrypt.compare(password, user.password);
+        if(!isPasswordMatch){
+            return res.json({success:false, message:'Wrong password'});
+        }
 
-        const isPassword = 
+        const token = jwt.sign({userId:user._id}, process.env.SECRET_KEY, {expiresIn:"1h"})
+        return res.json({ success: true, token: token, message:"LogIn successfully" });
 
     } catch (error) {
-        
+        return res.json({ success: false, message: error.message });
     }
-};
+}
 
-export {loginUser, registerUser};
-
+export  {registerUser,logInUser}
