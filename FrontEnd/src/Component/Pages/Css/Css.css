@@ -5,3 +5,41 @@
     gap: 15px;
     flex-wrap: wrap;
 }
+.login{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    position: absolute;
+    min-height: 100vh;
+    background-color: white;
+    padding: 50px 5%;
+    top: 0;
+    text-align: center;
+}
+.login_content{
+    position: relative;
+}
+.login form{
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+    gap: 20px;
+}
+.login form input,.login form button{
+    padding: 10px;
+    font-size: 20px;
+    outline: none;
+    border: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 5px;
+    min-width: 300px;
+    background-color: rgb(217, 241, 248);
+}
+.cross_icon{
+    width: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}

@@ -3,6 +3,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  position: relative;
 }
 html{
   scroll-behavior: smooth;

@@ -33,7 +33,9 @@ export const ShopProvider = ({children}) =>{
         return total
     }
 
-    return <ShopContext.Provider value={{getTotalAmount,removeFromCart,cartItem,addToCart,food_list}}>
+    const [display, setDisplay]= useState(true);
+
+    return <ShopContext.Provider value={{getTotalAmount,display,setDisplay,removeFromCart,cartItem,addToCart,food_list}}>
         {children}
     </ShopContext.Provider>
 }
