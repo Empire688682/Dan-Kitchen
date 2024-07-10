@@ -12,11 +12,8 @@ const Login = () => {
     email: "",
     password: ""
   });
-  
-
-  const formHandler = (e) => {
-    e.preventDefault();
-  }
+  const [message, setMessage] = useState(null);
+  const [classe, setClasse] = useState(null);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -26,19 +23,28 @@ const Login = () => {
   const createUser = async () => {
     try {
       const user = await axios.post(`${url}/Api/user/register`, data);
-      if (data.success === true) {
+      if (user.data.success === true) {
         setData({
           name: "",
           email: "",
           password: ""
-        })
+        });
+        setMessage(user.data.message);
+        setClasse("true");
       }
       else{
-        
+        setMessage(user.data.message);
+        setClasse("false");
       }
+      return user;
     } catch (error) {
       console.log(error)
     }
+  }
+
+  const formHandler = (e) => {
+    e.preventDefault();
+    createUser()
   }
 
   return (
@@ -51,13 +57,15 @@ const Login = () => {
             <input required value={data.name} onChange={handleOnchange} name='name' type="text" placeholder='Enter your name' />
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />
-            <button type="submit" onClick={createUser}>Register</button>
+            <button type="submit">Register</button>
+            <small className={classe === "true"? "true":"false"}>{message}</small>
             <p>Already have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={() => setStage("login")}>Login</small></p>
           </form> : <form onSubmit={formHandler}>
             <h1>Login</h1>
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />
             <button type="submit">Login</button>
+            <small className='message'>{message}</small>
             <p>Dont have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={() => setStage("signup")}>Signup</small></p>
           </form>
         }

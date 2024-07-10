@@ -36,6 +36,14 @@
     min-width: 300px;
     background-color: rgb(217, 241, 248);
 }
+form .false{
+    font-weight: bold;
+    color: red;
+}
+form .true{
+    font-weight: bold;
+    color: green;
+}
 .cross_icon{
     width: 30px;
     position: absolute;
