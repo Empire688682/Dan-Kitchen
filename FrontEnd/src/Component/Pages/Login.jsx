@@ -17,7 +17,7 @@ const Login = () => {
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }))
+    setData((prev) => ({ ...prev, [name]: value }));
   };
 
   const createUser = async () => {
@@ -32,7 +32,7 @@ const Login = () => {
         setMessage(user.data.message);
         setClasse("true");
       }
-      else{
+      else {
         setMessage(user.data.message);
         setClasse("false");
       }
@@ -42,31 +42,77 @@ const Login = () => {
     }
   }
 
-  const formHandler = (e) => {
-    e.preventDefault();
-    createUser()
+  const loginUser = async () => {
+    try {
+      const user = await axios.post(`${url}/Api/user/login`, data);
+      if (user.data.success === true) {
+        setData({
+          name: "",
+          email: "",
+          password: ""
+        });
+        setMessage(user.data.message);
+        setClasse("true");
+      }
+      else {
+        setMessage(user.data.message);
+        setClasse("false");
+      }
+      return user;
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  const signFormHandler = (e) => {
+    e.preventDefault();
+    createUser();
+    setMessage(null);
+  }
+
+  const loginFormHandler = (e) => {
+    e.preventDefault();
+    loginUser();
+    setMessage(null);
+  }
+
+  const loginClick = () => {
+    setStage("login");
+    setData({
+      name: "",
+      email: "",
+      password: ""
+    })
+  };
+  const signupClick = () => {
+    setStage("signup");
+    setData({
+      name: "",
+      email: "",
+      password: ""
+    })
+  };
 
   return (
     <div className='login'>
       <div className="login_content">
         <NavLink to="/" className='cross_icon'><img src={cross_Icon} alt="" /></NavLink>
         {
-          stage && stage === "signup" ? <form onSubmit={formHandler}>
+          stage && stage === "signup" ? <form onSubmit={signFormHandler}>
             <h1>SignUp</h1>
             <input required value={data.name} onChange={handleOnchange} name='name' type="text" placeholder='Enter your name' />
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />
             <button type="submit">Register</button>
-            <small className={classe === "true"? "true":"false"}>{message}</small>
-            <p>Already have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={() => setStage("login")}>Login</small></p>
-          </form> : <form onSubmit={formHandler}>
+            <small className={classe === "true" ? "true" : "false"}>{message}</small>
+            <p>Already have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={loginClick}>Login</small></p>
+          </form> : <form onSubmit={loginFormHandler}>
             <h1>Login</h1>
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />
             <button type="submit">Login</button>
-            <small className='message'>{message}</small>
-            <p>Dont have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={() => setStage("signup")}>Signup</small></p>
+            <small className={classe === "true" ? "true" : "false"}>{message}</small>
+            <p>Dont have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={signupClick}>Signup</small></p>
           </form>
         }
       </div>
