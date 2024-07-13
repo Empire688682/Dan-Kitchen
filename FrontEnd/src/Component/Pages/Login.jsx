@@ -107,7 +107,7 @@ const Login = () => {
             <small className={classe === "true" ? "true" : "false"}>{message}</small>
             <p>Already have an account <small style={{ textDecoration: "underline", color: "blue", cursor: "pointer" }} onClick={loginClick}>Login</small></p>
           </form> : <form onSubmit={loginFormHandler}>
-            <h1>Log in</h1>
+            <h1>Login</h1>
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />
             <button type="submit">Login</button>
