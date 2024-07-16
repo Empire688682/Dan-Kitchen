@@ -1,10 +1,13 @@
 import { userModel } from "../models/userModel.js";
 import validator from "validator";
 import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-dotenv.config()
+
+const createToken = (userId) =>{
+    return jwt.sign({userId}, process.env.SECRET_KEY)
+}
+
 
 const registerUser = async (req,res) =>{
     const {name, password, email} = req.body;
@@ -16,13 +19,11 @@ const registerUser = async (req,res) =>{
           return res.json({success:false, message:'User already exist'});
         }
         //checking isEmail valid
-        const isEmailValid = validator.isEmail(email);
-        if(!isEmailValid){
+        if(!validator.isEmail(email)){
             return res.json({success:false, message:'Please enter a valid email'});
         }
          //checking isPassword strong
-         const isPasswordStrong = password.length >= 8;
-         if(!isPasswordStrong){
+         if(!password.length >= 8){
             return res.json({success:false, message:'Please enter a Strong password'});
          }
 
@@ -33,10 +34,13 @@ const registerUser = async (req,res) =>{
             name:name,
             password:hashedPassword,
             email:email
-        })
+        });
+
+        createToken(user._id)
 
         await user.save();
          return res.json({success:true, message:'User registered'});
+         
     } catch (error) {
         return res.json({success:false, message:error.message});
     }
@@ -56,8 +60,8 @@ const logInUser = async (req,res) =>{
             return res.json({success:false, message:'Wrong password'});
         }
 
-        const token = jwt.sign({userId:user._id}, process.env.SECRET_KEY, {expiresIn:"1h"})
-        return res.json({ success: true, token: token, message:"LogIn successfully" });
+        const token =createToken(user._id)
+        return res.json({success:true, token, message:"Login successful"});
 
     } catch (error) {
         return res.json({ success: false, message: error.message });
