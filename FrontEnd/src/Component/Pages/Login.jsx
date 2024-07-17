@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
 import './Css/Css.css';
 import cross_Icon from '../Asset/cross_icon.png'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useGlobalContext } from '../Context';
+
 
 const Login = () => {
+  const {setToken, url} = useGlobalContext();
   const [stage, setStage] = useState("signup");
-  const url = "http://localhost:1999"
+  const useNav = useNavigate();
+  
+  const returnHome = () =>{
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useNav("/");
+  }
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -52,15 +60,23 @@ const Login = () => {
           password: ""
         });
         setMessage(user.data.message);
+        setToken(user.data.token);
         setClasse("true");
+        localStorage.setItem("token", user.data.token);
+        returnHome()
       }
       else {
         setMessage(user.data.message);
         setClasse("false");
+        setData({
+          name: "",
+          email: "",
+          password: ""
+        });
       }
       return user;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -84,6 +100,7 @@ const Login = () => {
       password: ""
     })
   };
+
   const signupClick = () => {
     setStage("signup");
     setData({
@@ -99,7 +116,7 @@ const Login = () => {
         <NavLink to="/" className='cross_icon'><img src={cross_Icon} alt="" /></NavLink>
         {
           stage && stage === "signup" ? <form onSubmit={signFormHandler}>
-            <h1>SignUp</h1>
+            <h1>SignIn</h1>
             <input required value={data.name} onChange={handleOnchange} name='name' type="text" placeholder='Enter your name' />
             <input required value={data.email} onChange={handleOnchange} name='email' type="email" placeholder='Enter your email' />
             <input required value={data.password} onChange={handleOnchange} name='password' type="password" placeholder='Enter your password' />

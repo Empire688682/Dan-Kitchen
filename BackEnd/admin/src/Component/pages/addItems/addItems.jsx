@@ -10,7 +10,7 @@ const AddItems = ({apiUrl}) => {
     const [image, setImage] = useState(null);
     const [data, setData] = useState({
         name:"",
-        description:"",
+        description:"Food provides essential nutrients for overall health and well-being",
         price:"",
         category:"Salad"
     });
@@ -37,9 +37,9 @@ const AddItems = ({apiUrl}) => {
             if(response.data.message === "Food added successful"){
                 setData({
                     name:"",
-                    description:"",
+                    description:"Food provides essential nutrients for overall health and well-being",
                     price:"",
-                    category:""
+                    category:"Salad"
                 })
                 setImage(null)
                 toast.success(response.data.message)

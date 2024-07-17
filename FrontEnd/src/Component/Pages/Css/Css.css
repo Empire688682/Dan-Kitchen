@@ -51,3 +51,147 @@ form .true{
     right: 0;
     cursor: pointer;
 }
+
+.cart_Item{
+    width: 90%;
+    margin: 0 auto;
+}
+.cart_Item .header, .cart_Item .content{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    border: 1px solid gray;
+    padding: 10px;
+    justify-content: space-between;
+    width: 100%;
+}
+.header .image{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 10%;
+    width: 100%;
+}
+.header .name{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 40%;
+    flex: 1;
+    width: 100%;
+}
+.header .category{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 10%;
+    width: 100%;
+}
+.header .quantity{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 5%;
+    width: 100%;
+}
+.header .price{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 15%;
+    width: 100%;
+}
+.header .remove{
+    font-size:12px;
+    font-weight:600;
+    flex-basis: 10%;
+    width: 100%;
+}
+.content .image{
+    flex-basis: 10%;
+    width: 100%;
+}
+.image img{
+    width: 60px;
+    height: 60px;
+}
+.content .name{
+    font-size:14px;
+    flex-basis: 40%;
+    flex: 1;
+    width: 100%;
+}
+.content .category{
+    font-size:14px;
+    flex-basis: 10%;
+    width: 100%;
+}
+.content .quantity{
+    font-size:14px;
+    flex-basis: 5%;
+    width: 100%;
+}
+.content .price{
+    font-size:14px;
+    flex-basis: 15%;
+    width: 100%;
+}
+.content .remove{
+    font-size:14px;
+    flex-basis: 10%;
+    width: 100%;
+    cursor: pointer;
+}
+.cart_total_promo_code{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 40px 0;
+    justify-content: space-between;
+}
+.cart_total_promo_code .two_col{
+    flex-basis: 45%;
+    min-width: 300px;
+}
+.cart_total_promo_code .two_col.cart div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 3px;
+}
+.cart_total_promo_code .two_col.cart button{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background-color: tomato;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.two_col.form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.two_col.form form{
+    display: flex;
+    background-color: gainsboro;
+    border-radius: 5px;
+}
+.two_col.form form input{
+    flex: 1;
+    height: 35px;
+    background-color: transparent;
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+.two_col.form form button{
+    background-color: black;
+    color: white;
+    padding: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 0 5px 5px 0;
+}

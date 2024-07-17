@@ -12,7 +12,6 @@ const ListItems = ({ apiUrl }) => {
       const response = await axios.get(`${apiUrl}/Api/food/foods`);
       if (response.data.message === true) {
         setAllFood(response.data.data);
-        console.log(response)
       }
     } catch (error) {
       console.log("FoodFetchError:", error)

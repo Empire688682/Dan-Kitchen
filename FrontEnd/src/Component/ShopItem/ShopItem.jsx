@@ -8,10 +8,10 @@ import { useGlobalContext } from '../Context'
 
 const ShopItem = ({name,id,price,image, description}) => {
   const [countItem, setCountItem] = useState(0);
-  const {removeFromCart,cartItem,addToCart,food_list} = useGlobalContext()
+  const {removeFromCart,cartItem,addToCart,url} = useGlobalContext()
   return (
     <div className='shop-item'>
-      <img className='shop-item-img' src={image}/>
+      <img className='shop-item-img' src={url+"/images/"+image}/>
       <div className="count-section">
         {
           !cartItem[id]? <div className=''>

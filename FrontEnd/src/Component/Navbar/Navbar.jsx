@@ -4,11 +4,21 @@ import Cart_Icon from '../Asset/basket_icon.png';
 import './Navbar.css'
 import { NavLink } from 'react-router-dom';
 import { useGlobalContext } from '../Context';
+import user_Icon from '../Asset/profile_icon.png';
+import bag_Icon from '../Asset/bag_icon.png';
+import logout_Icon from '../Asset/logout_icon.png';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [menu, setMenu] = useState("Home");
-    const {display, setDisplay} = useGlobalContext();
-    console.log(display)
+    const {token, setToken} = useGlobalContext();
+    const useNav = useNavigate()
+
+    const logOutUser = () =>{
+      localStorage.clear("token");
+      setToken(localStorage.getItem("token"))
+      useNav("/");
+    }
   return (
     <div className='navbar'>
       <h1 className='logo'>Dan Kitchen.</h1>
@@ -23,7 +33,16 @@ const Navbar = () => {
       <div className="login-section">
         <img src={Search_Icon} />
         <NavLink to='/cart'><img src={Cart_Icon} /></NavLink>
-        <NavLink to='/login'><button onClick={()=>setDisplay(true)}>Login</button></NavLink>
+        {
+          token? <div className="user_profile">
+            <img src={user_Icon} alt="IMG"/>
+            <ul>
+              <li><img src={bag_Icon} alt="Img"/><p>Order</p></li>
+              <li onClick={logOutUser}><img src={logout_Icon} alt="Img"/><p>Logout</p></li>
+            </ul>
+          </div>:
+          <NavLink to='/login'><button>SignUp</button></NavLink>
+        }
       </div>
     </div>
   )
