@@ -3,20 +3,6 @@ import { useGlobalContext } from '../Context'
 
 const Cart = () => {
   const { getTotalAmount, cartItem, food_list, url,removeFromCart } = useGlobalContext()
-  //return (
-  // <div className='cart'>
-  //   {
-  //    food_list.map((item,i) =>{
-  //      if(cartItem[item.id]>0 ){
-  //        console.log(item.price)
-  //        return <p key={i}>${cartItem[item.id] * item.price}</p>;
-  //       }
-  //      })
-  //    }
-  //     <h1>${getTotalAmount()}</h1>
-  //   </div>
-  // )
-  //}
   return (
     <div className='cart_Item'>
       <div className="header">
@@ -50,7 +36,7 @@ const Cart = () => {
           <h2>Cart Total</h2>
           <div>Subtotal <h4>${getTotalAmount()}</h4></div>
           <div>Delivery fees <h4>$20</h4></div>
-          <div>Total <h4>#{getTotalAmount() + 20}</h4></div>
+          <div>Total <h4>${getTotalAmount() + 20}</h4></div>
           <button>Procced to checkout</button>
         </div>
         <div className="two_col form">
