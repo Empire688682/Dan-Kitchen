@@ -7,7 +7,7 @@ import { useGlobalContext } from '../Context';
 
 
 const Login = () => {
-  const {setToken, url} = useGlobalContext();
+  const {setToken, token, url} = useGlobalContext();
   const [stage, setStage] = useState("signup");
   const useNav = useNavigate();
   
@@ -23,6 +23,24 @@ const Login = () => {
   const [message, setMessage] = useState(null);
   const [classe, setClasse] = useState(null);
 
+  const loginClick = () => {
+    setStage("login");
+    setData({
+      name: "",
+      email: "",
+      password: ""
+    })
+  };
+
+  const signupClick = () => {
+    setStage("signup");
+    setData({
+      name: "",
+      email: "",
+      password: ""
+    })
+  };
+
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
@@ -32,13 +50,7 @@ const Login = () => {
     try {
       const user = await axios.post(`${url}/Api/user/register`, data);
       if (user.data.success === true) {
-        setData({
-          name: "",
-          email: "",
-          password: ""
-        });
-        setMessage(user.data.message);
-        setClasse("true");
+        loginClick()
       }
       else {
         setMessage(user.data.message);
@@ -61,6 +73,7 @@ const Login = () => {
         });
         setMessage(user.data.message);
         setToken(user.data.token);
+        console.log(user.data.token);
         setClasse("true");
         localStorage.setItem("token", user.data.token);
         returnHome()
@@ -91,24 +104,6 @@ const Login = () => {
     loginUser();
     setMessage(null);
   }
-
-  const loginClick = () => {
-    setStage("login");
-    setData({
-      name: "",
-      email: "",
-      password: ""
-    })
-  };
-
-  const signupClick = () => {
-    setStage("signup");
-    setData({
-      name: "",
-      email: "",
-      password: ""
-    })
-  };
 
   return (
     <div className='login'>

@@ -24,16 +24,26 @@ export const ShopProvider = ({children}) =>{
         getAllFoods();
     },[])
 
-    const addToCart = (itemId) =>{
-        setCartItem((prev) =>{
-            if(!prev[itemId]){
-                return{...prev, [itemId]:1}
+    const addToCart = async (itemId) =>{
+        if(!cartItem[itemId]){
+            setCartItem((prev)=> ({...prev, [itemId]:1}))
+        }
+        else{
+            setCartItem((prev)=> ({...prev, [itemId]:prev[itemId] + 1}))
+        }
+        
+        if (token){
+            try {
+                const response = await axios.post(url+"/Api/user/add", {itemId}, {headers:{token}});
+                console.log(response.data)
+            } catch (error) {
+                console.log(error)
             }
-            else{
-                return{...prev, [itemId]:prev[itemId]+1}
-            }
-        })
+        }
     }
+
+    console.log(token)
+    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Njk3ZmQ2OTUyYTgwMWUwZTZlMWJmMmEiLCJpYXQiOjE3MjEzMTQxNDF9.ePfiFQzWZHb28g6Ltd3teQLcpboRQI_-kWV0EGNNHKI
 
     const removeFromCart = (itemId) =>{
         setCartItem((prev) =>({...prev, [itemId]:(prev[itemId]-1)}))
