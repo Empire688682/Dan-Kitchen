@@ -10,9 +10,19 @@ export const ShopProvider = ({children}) =>{
     const [token, setToken] = useState("");
     const url = "http://localhost:1999";
 
+    const loadCartData = async (token) =>{
+        try {
+            const response = await axios.post(url+"/Api/cart/get", {}, {headers:{token}});
+            setCartItem(response.data.cartData)
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     useEffect(()=>{
         localStorage.getItem("token");
-        setToken(localStorage.getItem("token"))
+        loadCartData(localStorage.getItem("token"))
+        setToken(localStorage.getItem("token"));
         const getAllFoods = async () =>{
             try {
                 const response = await axios.get(`${url}/Api/food/foods`);
@@ -22,7 +32,8 @@ export const ShopProvider = ({children}) =>{
             }
         };
         getAllFoods();
-    },[])
+    },[]);
+    
 
     const addToCart = async (itemId) =>{
         if(!cartItem[itemId]){
@@ -34,19 +45,29 @@ export const ShopProvider = ({children}) =>{
         
         if (token){
             try {
-                const response = await axios.post(url+"/Api/user/add", {itemId}, {headers:{token}});
+                const response = await axios.post(url+"/Api/cart/add", {itemId}, {headers:{token}});
                 console.log(response.data)
             } catch (error) {
-                console.log(error)
+                console.error('Error adding item to cart:', error.response ? error.response.data : error.message);
             }
+        }
+        else {
+            console.warn('No token available. User not authenticated.');
         }
     }
 
-    console.log(token)
-    //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Njk3ZmQ2OTUyYTgwMWUwZTZlMWJmMmEiLCJpYXQiOjE3MjEzMTQxNDF9.ePfiFQzWZHb28g6Ltd3teQLcpboRQI_-kWV0EGNNHKI
-
-    const removeFromCart = (itemId) =>{
+    const removeFromCart = async (itemId) =>{
         setCartItem((prev) =>({...prev, [itemId]:(prev[itemId]-1)}))
+        if(token){
+            try {
+                const response = await axios.post(url+"/Api/cart/remove", {itemId}, {headers:{token}});
+                console.log(response.data)
+            } catch (error) {
+                console.error('Error adding item to cart:', error.response ? error.response.data : error.message);
+            }
+        }else{
+            console.log('No token available. User not authenticated.');
+        }
     }
 
     const getTotalAmount = () =>{
