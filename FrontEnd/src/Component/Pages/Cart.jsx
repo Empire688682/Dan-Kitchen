@@ -1,5 +1,6 @@
 import React from 'react'
 import { useGlobalContext } from '../Context'
+import { NavLink } from 'react-router-dom'
 
 const Cart = () => {
   const { getTotalAmount, cartItem, food_list, url,removeFromCart } = useGlobalContext()
@@ -37,7 +38,7 @@ const Cart = () => {
           <div>Subtotal <h4>${getTotalAmount()}</h4></div>
           <div>Delivery fees <h4>$20</h4></div>
           <div>Total <h4>${getTotalAmount() + 20}</h4></div>
-          <button>Procced to checkout</button>
+          <button><NavLink to="/order" style={{textDecoration:"none", color:"white"}}>Procced to checkout</NavLink></button>
         </div>
         <div className="two_col form">
           <h5>If you have a promo code enter it here</h5>

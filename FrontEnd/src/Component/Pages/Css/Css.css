@@ -195,3 +195,59 @@ form .true{
     border: none;
     border-radius: 0 5px 5px 0;
 }
+
+/*-ORDER--*/
+.order{
+    width: 90%;
+    margin-top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
+.order .order_con{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+.order .two_col{
+    flex-basis: 45%;
+    min-width: 300px;
+}
+.order .two_col h3{
+    padding-bottom: 20px;
+}
+.order .two_col.cart div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 3px;
+}
+.order .two_col.cart button{
+    padding: 10px 25px;
+    border: none;
+    border-radius: 20px;
+    background-color: tomato;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.order .two_col form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order .two_col form input{
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font-size: 15px;
+    border: none;
+    background-color: lightgray;
+    border-radius: 3px;
+}

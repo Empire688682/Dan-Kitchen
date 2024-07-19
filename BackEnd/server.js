@@ -3,6 +3,7 @@ import cors from 'cors';
 import { connectDB } from './config/db.js';
 import { foodRouter } from './routes/foodRoute.js';
 import { userRouter } from './routes/userRouter.js';
+import { orderRouter } from './routes/orderRoute.js';
 import dotenv from "dotenv";
 import cartRoute from './routes/cartRouter.js';
 
@@ -20,7 +21,8 @@ app.use("/images", express.static("upload"));
 app.use("/foods", foodRouter);
 app.use("/remove", foodRouter);
 app.use("/Api/user", userRouter);
-app.use("/Api/cart", cartRoute);
+app.use("/Api/cart", cartRouter);
+app.use("/Api/order", orderRouter);
 
 
 //DB Connection
