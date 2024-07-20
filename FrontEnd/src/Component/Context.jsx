@@ -45,8 +45,7 @@ export const ShopProvider = ({children}) =>{
         
         if (token){
             try {
-                const response = await axios.post(url+"/Api/cart/add", {itemId}, {headers:{token}});
-                console.log(response.data)
+                await axios.post(url+"/Api/cart/add", {itemId}, {headers:{token}});
             } catch (error) {
                 console.error('Error adding item to cart:', error.response ? error.response.data : error.message);
             }
@@ -78,7 +77,8 @@ export const ShopProvider = ({children}) =>{
              total += totalInfo.price * cartItem[item]
             }
         }
-        return total
+        return total;
+        
     }
     
 

@@ -6,8 +6,7 @@ import add_Icon_Green from '../Asset/add_icon_green.png'
 import remove_Icon_Red from '../Asset/remove_icon_red.png'
 import { useGlobalContext } from '../Context'
 
-const ShopItem = ({name,id,price,image, description}) => {
-  const [countItem, setCountItem] = useState(0);
+const ShopItem = ({name,id,price,image,description}) => {
   const {removeFromCart,cartItem,addToCart,url} = useGlobalContext()
   return (
     <div className='shop-item'>

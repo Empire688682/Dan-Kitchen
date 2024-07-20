@@ -5,7 +5,7 @@ import { foodRouter } from './routes/foodRoute.js';
 import { userRouter } from './routes/userRouter.js';
 import { orderRouter } from './routes/orderRoute.js';
 import dotenv from "dotenv";
-import cartRoute from './routes/cartRouter.js';
+import cartRouter from './routes/cartRouter.js';
 
 dotenv.config();
 
